@@ -19,9 +19,18 @@
     /* start the experiment */
     jsPsych.init({
       timeline: timeline,
-      on_finish: function() {
-        jsPsych.data.displayData();
-        }
+      display_element: 'display_stage',
+      on_finish: function (data) {
+
+	        var datajs = jsPsych.data.get().json();
+          
+          Qualtrics.SurveyEngine.setEmbeddedData("datajs", datajs);
+  
+          jQuery('display_stage').remove();
+          jQuery('display_stage_background').remove();
+  
+          qthis.clickNextButton();
+      };
     });
 
 
